@@ -1,0 +1,254 @@
+/* COMMON */
+/* 프로젝트에 공통적으로 영향을 끼치는 CSS스타일 */
+body{
+  color: #333;
+  font-size: 16px;
+  font-weight: 100px;
+  line-height: 1.4;
+  font-family: 'Nanum Gothic', sans-serif;
+  height: 3000px;
+  /*이렇게 높이를 높게 하면 스크롤이 자동 생성된다.*/
+}
+
+ /* 이미지를 이제 글자가 아닌 레이아웃 취급하겠다. */
+img{
+  display: block;
+}
+
+a{
+  text-decoration:none;
+}
+
+.inner{
+  width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Header */
+header{
+  position: fixed;
+  /*스크롤을 내려도 헤더를 보이게 하기 위해 fixed*/
+  /*다만 이러면 가로를 최소한으로 사용하게 된다. 이러한 현상은 position:fixed, absolute에서 발생. 
+  */
+  width:100%;
+  top: 0;
+
+  background-color: #f6f5f0;
+  border-bottom: 1px solid #c8c8c8;
+}
+header > .inner{
+  height: 120px;
+
+  /* background-color: orange; */
+  /* 원래 없던 position을 넣는데, 특별한 문제가 생기지 않도록 relative */
+}
+
+header .logo{
+  height: 75px;
+  position: absolute; 
+  top:  0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+header .sub-menu{
+  display: flex;
+  /*아이콘이 서브 메뉴와 같이 정렬 */
+
+  /* header .inner의 왼쪽 상단에 있는 것을 오른쪽 상단으로 옮김 */
+  position: absolute;
+  top: 10px;
+  right: 0;
+}
+header .sub-menu ul.menu{
+  font-family: Arial, sans-serif;
+  /* sub-menu는 다른 폰트 */
+  display: flex;
+}
+/*sub-menu들을 수평 정렬  */
+
+/*상위 선택자를 명시하지 않고 ul.menu만 사용한다면
+클래스이름이 menu인 모든 ul태그가 선택될 것이다.
+*/
+header .sub-menu ul.menu li{
+  position: relative;
+  /*값이 없었기 때문에 relative*/
+  /* 가상 요소 before의 부모 요소이다. */
+}
+
+/* 가상 요소 선택자 */
+/* sub-menu의 구분선 */
+header .sub-menu ul.menu li::before{
+  content: "";
+  /*content를 비울 수는 있지만 없으면 가상 요소를 만들 수 없다.*/
+  /* display:block; */
+  width: 1px;
+  height: 12px;
+  background-color: #e5e5e5;
+  position: absolute;
+  /*부모 요소의 자리에 놓을 것이다.*/
+  /* 구조적인 부모 요소를 파악해서 위치 상의 부모 요소를 만들어줘야 한다*/
+
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+/* 가상 클래스 선택자*/
+/*sub-menu의 첫 구분선을 없애는 용도*/
+header .sub-menu ul.menu li:first-child::before{
+  display:none;
+}
+
+header .sub-menu ul.menu li a{
+  font-size: 12px;
+  padding: 11px 16px;
+  display: block;
+  color: #656565;
+}
+
+/*호버 효과*/
+header .sub-menu ul.menu li a:hover{
+ color: #000;
+}
+header .sub-menu .search{
+  /* background-color: red; */
+  height: 34px;
+  position: relative;
+}
+header .sub-menu .search input{
+  width: 36px;
+  height: 34px;
+  padding: 4px 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius:5px;
+  outline: none;
+  background-color: #fff;
+  color:#777;
+  /*포커스 효과가 자연스럽게 전환효과를 준다.*/
+  transition: width .4s;
+}
+/*input요소의 가로 넓이가 글씨를 입력하기에는 너무 짧다. */
+/*가상 클래스 선택자. input 요소가 focus되면 길이를 늘린다. */
+header .sub-menu .search input:focus{
+  width: 190px;
+  border-color: #669900;
+}
+header .sub-menu .search .material-icons{
+  /*중간 정렬을 위해 height */
+  height: 24px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 5px;
+  margin: auto;
+
+  transition: .4;
+  /*자연스럽게 사라지게 하려고*/
+}
+header .sub-menu .search.focused .material-icons{
+/* search와 focused는 일치 선택자*/
+/* focused는 자바 스크립트로 search에 붙었다 빠진다 */
+
+opacity: 0;
+/*투명하게 해서 포커스됬을 떄 안 보인다*/
+}
+
+header .main-menu{
+  position: absolute;
+  display: flex;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  /* 작은 광고가 있는 배지 부분을 잘 덮을 수 있도록 요소의 쌓임 순서를
+  z-index로 제어*/
+}
+header .main-menu .item{
+
+}
+header .main-menu .item .item__name{
+  padding: 10px 20px 34px 20px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+}
+header .main-menu .item:hover .item__name{
+  background-color: #2c2a29;
+  color: #669900;
+  border-radius: 6px 6px 0 0;
+}
+/*item__name에 호버를 했을 때, item__name의 색이 바뀌는 것 말고도
+item__contents도 나와야 한다. 따라서 item__name:hover만으로는 안 된다.
+따라서 item자체에 가상 클래스 선택자가 부여되어야 한다.
+*/
+
+header .main-menu .item .item__contents{
+  width: 100%;
+  position: fixed;
+  /* 뷰 포트를 기준으로 배치하겠다 */
+  left : 0; 
+  /* top이나 bottom 속성을 사용하지 않아 수직 위치 값이 없다면,
+  요소의 원래 위치를 그대로 사용합니다.
+  만약 position: absolute를 사용했다면 위치상 부모 요소를 기준으로 하므로
+  화면의 뷰포트 좌우 끝까지 늘어날 수 없게 됩니다 */
+
+  display: none;
+}
+header .main-menu .item:hover .item__contents{
+  display:block;
+}
+header .main-menu .item .item__contents .contents__menu{
+  background-color: #2c2a29;
+  /* 높이를 넣지 않으면 auto가 되면서 안에 내용물 만큼 높이 */
+}
+header .main-menu .item .item__contents .contents__menu > ul{
+    display: flex;
+   /*커피, 에스프레스 음료, 커피이야기.... 가 수평 정렬*/
+    padding: 20px 0;  
+}
+header .main-menu .item .item__contents .contents__menu > ul > li{
+   width: 220px; 
+}
+header .main-menu .item .item__contents .contents__menu > ul > li h4{
+   padding: 3px 0 12px 0; 
+   font-size: 14px;
+   color:#fff;
+}
+header .main-menu .item .item__contents .contents__menu > ul > li ul li{
+  padding: 5px 0;
+  font-size: 12px;
+  color: #999;
+  cursor: pointer;
+  /* 커서가 손가락 모양 */
+}
+header .main-menu .item .item__contents .contents__menu > ul > li ul li:hover{
+  color:#669900;
+}
+header .main-menu .item .item__contents .contents__texture{
+  padding: 26px 0;
+  font-size: 12px;
+  background-image: url("../images/main_menu_pattern.jpg"); 
+  /* 이미지 삽입은 background-repeat:repeat가 기본 값이다. */
+  
+}
+header .main-menu .item .item__contents .contents__texture h4{
+  color: #999;
+  font-weight: 700;
+}
+header .main-menu .item .item__contents .contents__texture p{
+  color: #669900;
+  margin: 4px 0 14px;
+}
+header .badges{
+  position: absolute;
+  top: 132px;
+  right: 12px;
+}
+header .badges .badge{
+  border-radius: 10px;
+  overflow: hidden;
+  /* 이미지가 깍아진 모서리 밖으로 보이지 않도록 */
+  margin-bottom: 12px;
+  box-shadow: 4px 4px 10px rgba(0,0,0, .15);
+  cursor: pointer;
+}
