@@ -14,15 +14,63 @@ body{
 img{
   display: block;
 }
-
 a{
   text-decoration:none;
 }
-
 .inner{
   width: 1100px;
   margin: 0 auto;
   position: relative;
+}
+.btn{
+  width: 130px;
+  padding: 10px;
+  border: 2px solid #333;
+  border-radius: 4px;
+  color: #333;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  /*a태그나 span태그에 버튼을 부여해도 정상적으로 모양이 나오도록*/
+  transition: .4s;
+}
+.btn:hover{
+  background-color: #333;
+  color: #fff;
+}
+.btn.btn--reverse{
+  background-color: #333;
+  color: #fff;
+}
+.btn.btn--reverse:hover{
+  background-color: transparent;
+  color: #333;
+}
+.btn.btn--brown{
+  background-color:#FFF;
+  color: #592818;
+}
+.btn.btn--brown:hover{
+  color: #FFF;
+  background-color: #592818
+}
+.btn.btn--gold{
+  color: #d9aa8a;
+  border-color: #fff;
+}
+.btn.btn--gold:hover{
+  border-color: #d9aa8a;
+  color: #fff;
+}
+.btn--white{
+  color: #fff;
+  border-color: #fff;
+}
+.btn--white:hover{
+  color: #333;
+  background-color: #fff;
 }
 
 /* Header */
@@ -36,6 +84,9 @@ header{
 
   background-color: #f6f5f0;
   border-bottom: 1px solid #c8c8c8;
+  z-index: 9;
+  /* 적당히 큰값 */
+  
 }
 header > .inner{
   height: 120px;
@@ -251,4 +302,158 @@ header .badges .badge{
   margin-bottom: 12px;
   box-shadow: 4px 4px 10px rgba(0,0,0, .15);
   cursor: pointer;
+}
+
+/* VISUAL */
+.visual{
+  margin-top: 120px;
+  /* 헤더의 이너 높이값 */
+  /* VISUAL 영역의 이미지가 헤더와 겹치지 않게 된다.*/
+  background-image:url("../images/visual_bg.jpg");
+  background-position: center;
+}
+.visual .inner{
+  height: 646px;
+  /* 상단의 inner값을 사용한다. */
+ 
+}
+
+/* 중간에 구조를 위해서 넣었던 의미 없는 태그들에 대해서는 선택자를 사용하지 않아도 된다 */
+/* .visual .inner .title{
+이 경우가 그렇다. inner는 가운데로 몰아주는 기능.
+} */
+
+.visual .title{
+  position:absolute;
+  /* 구조적 부모는 inner이다 */
+  top:88px;
+  left: -10px;
+  
+}
+.visual .title .btn{
+  position: absolute;
+  top: 259px;
+  left: 173px;
+}
+.visual .cup1.image{
+  position: absolute;
+  bottom: 0;
+  right: -47px;
+}
+.visual .cup1.text{
+  position: absolute;
+  top: 38px;
+  right: 171px;
+}
+.visual .cup2.image{
+  position: absolute;
+  bottom: 0;
+  right: 162px;
+}
+.visual .cup2.text{
+  position: absolute;
+  top: 321px;
+  right: 416px;
+}
+.visual .spoon{
+  position: absolute;
+  bottom: 0;
+  left: 275px;
+}
+.visual .fade-in{
+  opacity: 0;
+}
+
+/* NOTICE */
+.notice{
+}
+.notice .notice-line{
+  position:relative;
+}
+.notice .notice-line .bg-left{
+  position: absolute;
+  top: 0; 
+  left: 0;
+  /*top, left없어도 괜찮은것 같은데...*/
+  width: 50%;
+  height: 100%;
+  background-color: #333;
+}
+.notice .notice-line .bg-right{
+  position: absolute;
+  top: 0;
+  right: 0; 
+  /*top,right중 하나라도 없으면 문제*/
+  width: 50%;
+  height: 100%;
+  background-color: #f6f5ef;
+}
+.notice .notice-line .inner{
+  /* height: 200px; */
+  /*부모인 notice-line의 height:auto이므로 컨텐츠 크기만큼 맞춰진다*/
+  /*inner하나로 높이를 제어한다. 그렇지 않으면 bg-left, bg-right의 높이도 명시행된다.*/
+  height: 62px;
+  display: flex;
+}
+.notice .notice-line .inner__left{
+  height: 100%;
+  width: 60%;
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  /* align-itmes의 기본값이 stretch에서 center로 바뀌면서 */
+  /* swiper-container의 높이가 없어지면서 오렌지 색 영역이 사라졌다. */
+}
+/* bg-left랑 무슨 차이?*/
+.notice .notice-line .inner__left h2{
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  margin-right: 20px;
+}
+.notice .notice-line .inner__left .swiper-container{
+  height: 62px;
+  /*높이를 해주면 다시 보여준다.*/
+  background-color: orange;
+  flex-grow: 1;
+}
+.notice .notice-line .inner__left .notice-line__more{
+  width: 62px;
+  height: 62px;
+  display:flex;
+  /* 아이콘을 가운데 정렬 */
+  justify-content: center;
+  /* 수평 가운데 */
+  align-items: center;
+  /* 수직 가운데 */
+}
+.notice .notice-line .inner__left .notice-line__more .material-icons{
+  color: #fff;
+  font-size: 30px;
+  /* icon의 기본 크기는 24px이었다. */
+}
+.notice .notice-line .inner__right{
+  width: 40%;
+  height: 100%;
+  display: flex;
+  /*스타벅스 프로모션과 아이콘 수평 정렬*/
+  justify-content: flex-end;
+  /* 이너의 우측에  */
+  align-items: center;
+}
+.notice .notice-line .inner__right h2{
+ font-size:17px;
+ font-weight: 700;
+}
+.notice .notice-line .inner__right .toggle-promotion{
+  height: 62px;
+  width: 62px;
+  /*더보기와 다르게 a태그가 아니다.*/
+  cursor: pointer;
+  display:flex;
+  justify-items: center;
+  align-items: center;
+}
+.notice .notice-line .inner__right .toggle-promotion .material-icons{
+  font-size: 30px;
 }

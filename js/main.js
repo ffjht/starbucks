@@ -56,6 +56,7 @@ window.addEventListener('scroll', _.throttle(function(){
       opacity: 1,
       display: 'block'
     });
+    // 3번째 인자는 객체 데이터 형태
   }
   // 화면이 스크롤 될때 마다 window.scrollY의 값이 바뀐다.
 }, 300));
@@ -63,3 +64,14 @@ window.addEventListener('scroll', _.throttle(function(){
 //우리가 설치한 lodash라는 자바스크립트 라이브러리에서 throttle()을 쓸 수 있게
 //스크립트 태그를 연결함으로써 등록됨.
 //단위는 ms. 0.3초로 
+
+const fadeEls = document.querySelectorAll('.visual .fade-in');
+fadeEls.forEach(function(fadeEl, index){
+  gsap.to(fadeEl, 1, {
+    delay: (index + 1) * .7,
+    opacity: 1
+  });
+  // 요소, 지속시간, 옵션
+  // 0.7초에 한 번씩 실행된다.
+});
+// querySelectorAll에서 찾은 요소 개수 만큼 반복
